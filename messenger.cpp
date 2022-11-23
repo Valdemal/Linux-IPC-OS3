@@ -1,20 +1,11 @@
 #include <iostream>
-#include <cstring>
 #include "headers/MessageQueueProxy.h"
+#include "headers/Messenger.h"
 
 int main (int argc, char **argv) {
+    Messenger messenger(argv[1]);
 
-    name_t messenger_name;
-    strcpy(messenger_name, argv[1]);
-
-    MessageQueueProxy::init();
-
-    auto proxy_instance = MessageQueueProxy::get_instance();
-    if (proxy_instance->contains_messenger_name(messenger_name)){
-        std::cout << "Мессенджер с таким именем уже существует!" << std::endl;
-    } else {
-        proxy_instance->add_messenger_name(messenger_name);
-    }
+    std::cout << "hash " << hash(messenger.get_name()) << std::endl;
 
     bool is_running = true;
     while (is_running){
@@ -27,7 +18,7 @@ int main (int argc, char **argv) {
 
         switch (input_flag) {
             case 1:
-                proxy_instance->print_messengers_names();
+                MessageQueueProxy::get_instance()->print_messengers_names();
                 break;
             case 0:
                 is_running = false;
@@ -36,6 +27,4 @@ int main (int argc, char **argv) {
                 std::cout << "Неправильный ввод! Повторите операцию." << std::endl;
         }
     }
-
-    proxy_instance->remove_messenger_name(messenger_name);
 }

@@ -4,7 +4,7 @@
 #include <sys/msg.h>
 #include <stdexcept>
 #include <sys/sem.h>
-#include "names.h"
+#include "NamesArray.h"
 
 class MessageQueueProxy {
 public:
@@ -14,14 +14,15 @@ public:
 
     static MessageQueueProxy* get_instance();
 
-    bool contains_messenger_name(name_t name) const;
+    bool contains_messenger(name_t messenger_name) const;
 
-    void add_messenger_name(name_t name);
+    void add_messenger(name_t messenger_name);
 
-    void remove_messenger_name(name_t name);
+    void remove_messenger(name_t messenger_name);
 
     void print_messengers_names() const;
 
+    inline int get_queue_id() const;
 private:
     static const char* QUEUE_NAME;
     static const int PROJ_ID;

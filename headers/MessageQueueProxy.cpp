@@ -75,21 +75,21 @@ MessageQueueProxy *MessageQueueProxy::get_instance() {
 
 MessageQueueProxy::MessageQueueProxy(int queue_id, int sem_id) : queue_key(queue_id), sem_id(sem_id) {}
 
-void MessageQueueProxy::add_messenger_name(name_t name) {
+void MessageQueueProxy::add_messenger(name_t messenger_name) {
     // Lock mutex
     semop(sem_id, &SEM_LOCK,1);
 
-    names.push_back(name);
+    names.push_back(messenger_name);
 
     // Unlock mutex
     semop(sem_id, &SEM_UNLOCK,1);
 }
 
-bool MessageQueueProxy::contains_messenger_name(name_t name) const {
+bool MessageQueueProxy::contains_messenger(name_t messenger_name) const {
     // lock mutex
     semop(sem_id, &SEM_LOCK,1);
 
-    bool is_find = names.find(name) != -1;
+    bool is_find = names.find(messenger_name) != -1;
 
     // Unlock mutex
     semop(sem_id, &SEM_UNLOCK,1);
@@ -97,11 +97,11 @@ bool MessageQueueProxy::contains_messenger_name(name_t name) const {
     return is_find;
 }
 
-void MessageQueueProxy::remove_messenger_name(name_t name) {
+void MessageQueueProxy::remove_messenger(name_t messenger_name) {
     // Lock mutex
     semop(sem_id, &SEM_LOCK,1);
 
-    int index = names.find(name);
+    int index = names.find(messenger_name);
 
     if (index != -1)
         names.remove(index);
@@ -120,4 +120,8 @@ void MessageQueueProxy::print_messengers_names() const {
 
     // Unlock mutex
     semop(sem_id, &SEM_UNLOCK,1);
+}
+
+int MessageQueueProxy::get_queue_id() const {
+    return queue_key;
 }
