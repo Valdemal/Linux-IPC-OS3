@@ -25,7 +25,7 @@ int main() {
 
         switch (input_flag) {
             case 1:
-                proxy_instance->print_messengers_names();
+                proxy_instance->print_messengers();
                 break;
             case 0:
                 is_running = false;

@@ -42,7 +42,7 @@ void MessageQueueProxy::init() {
         if (key == -1)
             throw std::runtime_error("Ошибка генерации ключа!");
 
-        int queue_id = msgget(key, IPC_CREAT);
+        int queue_id = msgget(key, IPC_CREAT|0660);
 
         if (queue_id == -1)
             throw std::runtime_error("Ошибка соединения с очередью сообщений!");
@@ -110,7 +110,7 @@ void MessageQueueProxy::remove_messenger(name_t messenger_name) {
     semop(sem_id, &SEM_UNLOCK,1);
 }
 
-void MessageQueueProxy::print_messengers_names() const {
+void MessageQueueProxy::print_messengers() const {
     // Lock mutex
     semop(sem_id, &SEM_LOCK,1);
 

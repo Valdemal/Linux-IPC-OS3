@@ -31,10 +31,10 @@ size_t NamesArray::size() const {
 }
 
 long hash(const name_t& name) {
-    long hash_val = name[0] - 96;
+    long hash_val = (unsigned char)name[0] - 32;
 
     for (size_t i = 0; name[i] != '\0'; i++){
-        int letter = name[i] - 96;
+        int letter = (unsigned char)name[i] - 32;
         hash_val = hash_val * 27 + letter;
     }
 

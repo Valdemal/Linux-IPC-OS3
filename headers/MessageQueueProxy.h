@@ -20,9 +20,9 @@ public:
 
     void remove_messenger(name_t messenger_name);
 
-    void print_messengers_names() const;
+    void print_messengers() const;
 
-    inline int get_queue_id() const;
+    int get_queue_id() const;
 private:
     static const char* QUEUE_NAME;
     static const int PROJ_ID;
