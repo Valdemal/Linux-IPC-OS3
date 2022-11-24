@@ -49,7 +49,7 @@ std::list<message_t> Messenger::receive() {
         message_buf_t buf;
 
         // Если сообщение было успешно считано
-        has_available_messages = msgrcv(queue_id, &buf, MESSAGE_SIZE, receiver_hash, 0) >= 0;
+        has_available_messages = msgrcv(queue_id, &buf, MESSAGE_SIZE, receiver_hash, IPC_NOWAIT) >= 0;
 
         if (has_available_messages)
             received_messages.push_back(buf.message);

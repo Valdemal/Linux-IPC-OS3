@@ -14,6 +14,9 @@ int main() {
 
     auto proxy_instance = MessageQueueProxy::get_instance();
 
+    std::cout << "Вас приветствует программа для управления мессенджерами. "
+                 "Не закрывайте программу, пока запущены мессенджеры!" << std::endl;
+
     bool is_running = true;
     while (is_running) {
         std::cout << "1. Вывести список процессов-мессенджеров" << std::endl;
